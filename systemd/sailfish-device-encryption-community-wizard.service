@@ -1,0 +1,17 @@
+[Unit]
+Description=Device Encryption Setup Wizard
+After=wait_for_keymaster.service droid-late-start.service
+Requires=wait_for_keymaster.service droid-late-start.service
+Before=systemd-ask-password-gui.service late-mount.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=-/var/lib/environment/compositor/*.conf
+ExecStartPre=/usr/bin/sailfish-device-encryption-community-wizard $LIPSTICK_OPTIONS
+ExecStartPre=-/system/bin/stop vendor.hwcomposer-2-3
+ExecStartPre=-/system/bin/start vendor.hwcomposer-2-3
+Restart=no
+
+[Install]
+RequiredBy=late-mount.target systemd-ask-password-gui.service
