@@ -12,6 +12,7 @@
 #include <signal.h>
 
 #include <devenc/devicelist.h>
+#include <devenc/passwordmaker.h>
 
 int main(int argc, char *argv[])
 {
@@ -26,9 +27,14 @@ int main(int argc, char *argv[])
   //QQmlContext *rootContext = v->rootContext();
 
   qmlRegisterType<DevEnc::Device>("org.devenc", 1, 0, "Device");
+  qmlRegisterType<DevEnc::Password>("org.devenc", 1, 0, "Password");
 
   qmlRegisterSingletonType<DevEnc::DeviceList>("org.devenc", 1, 0, "DeviceList", [](QQmlEngine *, QJSEngine *) -> QObject * {
       return static_cast<QObject *>(DevEnc::DeviceList::instance());
+  });
+
+  qmlRegisterSingletonType<DevEnc::PasswordMaker>("org.devenc", 1, 0, "PasswordMaker", [](QQmlEngine *, QJSEngine *) -> QObject * {
+      return static_cast<QObject *>(DevEnc::PasswordMaker::instance());
   });
 
   v->setSource(SailfishApp::pathTo("qml/main.qml"));
