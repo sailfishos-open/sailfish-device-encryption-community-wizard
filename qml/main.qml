@@ -5,7 +5,7 @@ ApplicationWindow
 {
     id: app
 
-    initialPage: Component { MainPage { } }
+    initialPage: Component { MainPage { firstTime: true } }
     cover: undefined
 
     property var bgColor: "black"

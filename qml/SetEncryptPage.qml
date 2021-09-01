@@ -37,22 +37,51 @@ Page {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.horizontalPageMargin
 
-                color: Theme.highlightColor
+                color: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeLarge
                 text: {
-                    if (!success) return qsTr("Failed to setup the filesystem.");
+                    if (!success) return qsTr("Failed to setup the filesystem. This suggests an error in the device adaptation. Please contact the porter of the device.");
                     if (encrypt)
-                        return qsTr("Filesystem encryption successful. Proceed with setting passwords");
-                    return qsTr("Filesystem is ready to use")
+                        return qsTr("Filesystem encryption successful. Proceed with setting passwords.");
+                    return qsTr("Filesystem is ready to use.")
                 }
                 visible: page.done
                 wrapMode: Text.WordWrap
             }
 
-            Button {
-                text: "Quit"
-                onClicked: Qt.quit()
+            ButtonLayout {
+                height: implicitHeight + 2*Theme.paddingLarge
+                visible: done
+
+                Button {
+                    text: success ? qsTr("Done") : qsTr("Back")
+                    onClicked: pageStack.replace(Qt.resolvedUrl("MainPage.qml"))
+                }
             }
 
+            Label {
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+
+                color: Theme.highlightColor
+                //font.pixelSize: Theme.fontSizeLarge
+                text: qsTr("It is possible to quit the setup of filesystems by pressing Quit below. " +
+                           "This option is mainly for debug purposes and is expected to be used by device porters " +
+                           "at the testing stage.")
+                visible: done && !success
+                wrapMode: Text.WordWrap
+            }
+
+            ButtonLayout {
+                visible: done && !success
+
+                Button {
+                    text: "Quit"
+                    onClicked: Qt.quit()
+                }
+            }
         }
 
         VerticalScrollDecorator { flickable: parent }
@@ -69,7 +98,7 @@ Page {
         repeat: false
         onTriggered: {
             var now = new Date().getTime();
-            while(new Date().getTime() < now + 20000){ /* Do nothing */ }
+            while(new Date().getTime() < now + 5000){ /* Do nothing */ }
 
 //            if (page.device.setEncryption(encrypt)) {
 //                success = true;
@@ -77,11 +106,11 @@ Page {
 //                success = false;
 //            }
 
-            success = true;
+            success = false;
 
-            if (success && !encrypt) {
-                success = device.setInitialized();
-            }
+//            if (success && !encrypt) {
+//                success = device.setInitialized();
+//            }
 
             busy = false;
             done = true;

@@ -7,6 +7,7 @@ Page {
     id: main
 
     property Device device: null
+    property bool   firstTime: false
 
     Rectangle {
         color: app.bgColor
@@ -30,16 +31,25 @@ Page {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.horizontalPageMargin
 
-                color: Theme.highlightColor
+                color: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeLarge
                 height: implicitHeight + 2*Theme.paddingLarge
-                text: qsTr("Welcome! Your device supports encryption of the filesystem. " +
-                           "This wizard will let you select whether to enable it " +
-                           "and, if it is enabled, to set it up.")
+                text: {
+                    if (firstTime)
+                        return qsTr("Welcome! Your device supports encryption of the filesystem. " +
+                                    "This wizard will let you select whether to enable it " +
+                                    "and, if it is enabled, to set it up.");
+                    if (device)
+                        return qsTr("Continue by setting up the following filesystem.")
+
+                    return qsTr("Congratulations! You are all set. Continue with the setup of Sailfish OS.")
+                }
                 wrapMode: Text.WordWrap
             }
 
             PageHeader {
-                title: main.device.name
+                title: main.device ? main.device.name : ""
+                visible: main.device
             }
 
             Label {
@@ -48,27 +58,37 @@ Page {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.horizontalPageMargin
                 color: Theme.highlightColor
-                text: qsTr("Encrypt %1?").arg(main.device.name)
+                font.pixelSize: Theme.fontSizeLarge
+                text: main.device ? qsTr("Encrypt %1?").arg(main.device.name) : ""
                 visible: main.device
                 wrapMode: Text.WordWrap
             }
 
             ButtonLayout {
+                visible: main.device
                 Button {
                     text: qsTr("Yes")
-                    onClicked: pageStack.push(Qt.resolvedUrl("SetEncryptPage.qml"),
-                                              {
-                                                  "device": main.device,
-                                                  "encrypt": true
-                                              })
+                    onClicked: pageStack.replace(Qt.resolvedUrl("SetEncryptPage.qml"),
+                                                 {
+                                                     "device": main.device,
+                                                     "encrypt": true
+                                                 })
                 }
                 Button {
                     text: qsTr("No")
-                    onClicked: pageStack.push(Qt.resolvedUrl("SetEncryptPage.qml"),
-                                              {
-                                                  "device": main.device,
-                                                  "encrypt": false
-                                              })
+                    onClicked: pageStack.replace(Qt.resolvedUrl("SetEncryptPage.qml"),
+                                                 {
+                                                     "device": main.device,
+                                                     "encrypt": false
+                                                 })
+                }
+            }
+
+            ButtonLayout {
+                visible: !device
+                Button {
+                    text: qsTr("Continue")
+                    onClicked: Qt.quit()
                 }
             }
         }
@@ -79,6 +99,7 @@ Page {
     Component.onCompleted: nextDev()
 
     function nextDev() {
+        DeviceList.resetNextDevice();
         var d = DeviceList.nextDevice();
         while (d != null) {
             if (!d.initialized)
