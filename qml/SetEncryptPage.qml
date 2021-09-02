@@ -5,12 +5,12 @@ import org.devenc 1.0
 
 Page {
     id: page
-    backNavigation: !busy
 
-    // setup when pushing page
+    // set these properties when pushing page
     property bool   encrypt
     property Device device: null
 
+    // internal properties
     property bool   busy: false
     property bool   done: false
     property bool   success: false
@@ -40,10 +40,9 @@ Page {
                 color: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeLarge
                 text: {
-                    if (!success) return qsTr("Failed to setup the filesystem. This suggests an error in the device adaptation. Please contact the porter of the device.");
-                    if (encrypt)
-                        return qsTr("Filesystem encryption successful. Proceed with setting passwords.");
-                    return qsTr("Filesystem is ready to use.")
+                    if (!success)
+                        return qsTr("Failed to setup the filesystem. This suggests an error in the device adaptation. Please contact the porter of the device.");
+                    return qsTr(""); // going to the next page in a moment
                 }
                 visible: page.done
                 wrapMode: Text.WordWrap
@@ -51,10 +50,10 @@ Page {
 
             ButtonLayout {
                 height: implicitHeight + 2*Theme.paddingLarge
-                visible: done
+                visible: done && !success
 
                 Button {
-                    text: success ? qsTr("Done") : qsTr("Back")
+                    text: qsTr("Back")
                     onClicked: pageStack.replace(Qt.resolvedUrl("MainPage.qml"))
                 }
             }
@@ -100,17 +99,17 @@ Page {
             var now = new Date().getTime();
             while(new Date().getTime() < now + 5000){ /* Do nothing */ }
 
-//            if (page.device.setEncryption(encrypt)) {
-//                success = true;
-//            } else {
-//                success = false;
-//            }
+            //            if (page.device.setEncryption(encrypt)) {
+            //                success = true;
+            //            } else {
+            //                success = false;
+            //            }
 
-            success = false;
+            success = true;
 
-//            if (success && !encrypt) {
-//                success = device.setInitialized();
-//            }
+            //            if (success && !encrypt) {
+            //                success = device.setInitialized();
+            //            }
 
             busy = false;
             done = true;
@@ -121,6 +120,17 @@ Page {
         if (status === PageStatus.Active ) {
             busy = true;
             pauseBeforeAction.start();
+        }
+    }
+
+    onSuccessChanged: {
+        if (success && encrypt) {
+            pageStack.replace(Qt.resolvedUrl("PasswordTypePage.qml"),
+                              {
+                                  "device": device
+                              });
+        } else if (success) {
+            pageStack.replace(Qt.resolvedUrl("MainPage.qml"))
         }
     }
 }
