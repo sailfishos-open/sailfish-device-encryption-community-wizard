@@ -31,12 +31,7 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %make_install
 
-mkdir -p %{buildroot}/%{_unitdir}
-install -t %{buildroot}/%{_unitdir} --mode=644 systemd/sailfish-device-encryption-community-wizard.service
-cp -r systemd/*.requires %{buildroot}/%{_unitdir}
-
 %files
 %defattr(-,root,root,-)
 %{_bindir}
 %{_datadir}/%{name}
-%{_unitdir}
