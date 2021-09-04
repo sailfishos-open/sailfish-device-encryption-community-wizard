@@ -98,20 +98,15 @@ Page {
         interval: 100
         repeat: false
         onTriggered: {
-            var now = new Date().getTime();
-            while(new Date().getTime() < now + 5000){ /* Do nothing */ }
+            if (page.device.setEncryption(encrypt)) {
+                success = true;
+            } else {
+                success = false;
+            }
 
-            //            if (page.device.setEncryption(encrypt)) {
-            //                success = true;
-            //            } else {
-            //                success = false;
-            //            }
-
-            success = true;
-
-            //            if (success && !encrypt) {
-            //                success = device.setInitialized();
-            //            }
+            if (success && !encrypt) {
+                success = device.setInitialized();
+            }
 
             busy = false;
             done = true;

@@ -42,7 +42,7 @@ Page {
                     if (device)
                         return qsTr("Continue by setting up the following filesystem.")
 
-                    return qsTr("Congratulations! You are all set. Continue with the setup of Sailfish OS.")
+                    return qsTr("Congratulations! You are all set. Continue with the setup of Sailfish OS. For that, you would have to reboot first.")
                 }
                 wrapMode: Text.WordWrap
             }
@@ -87,7 +87,14 @@ Page {
             ButtonLayout {
                 visible: !device
                 Button {
-                    text: qsTr("Continue")
+                    text: qsTr("Reboot")
+                    onClicked: system.reboot()
+                }
+            }
+
+            ButtonLayout {
+                Button {
+                    text: qsTr("Debug exit")
                     onClicked: Qt.quit()
                 }
             }

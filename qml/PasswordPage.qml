@@ -10,6 +10,8 @@ Page {
     property Device device: null
 
     // internal properties
+    property bool   busy:   false
+    property bool   done:   false
     property bool   failed: false
     property string type
 
@@ -25,6 +27,7 @@ Page {
         Column {
             id: column
             spacing: Theme.paddingLarge
+            visible: !done
             width: parent.width
 
             PageHeader {
@@ -41,11 +44,13 @@ Page {
                 height: implicitHeight + Theme.paddingLarge
                 text: qsTr("Set password for encrypted filesystem. Note that only one password is needed at this stage. " +
                            "Addition, removal, and changes of passwords are supported through Sailfish OS Settings.")
+                visible: !page.busy
                 wrapMode: Text.WordWrap
             }
 
             SectionHeader {
                 text: qsTr("Add password")
+                visible: !page.busy
             }
 
             Repeater {
@@ -53,6 +58,7 @@ Page {
 
                 delegate: ListItem {
                     contentHeight: Theme.itemSizeSmall
+                    visible: !page.busy
 
                     Label {
                         anchors.left: parent.left
@@ -84,13 +90,13 @@ Page {
                 color: Theme.primaryColor
                 height: implicitHeight + Theme.paddingLarge
                 text: qsTr("Failed to add password to the filesystem. This suggests an error in the device adaptation. Please contact the porter of the device.");
-                visible: failed
+                visible: failed && !busy
                 wrapMode: Text.WordWrap
             }
 
             ButtonLayout {
                 height: implicitHeight + 2*Theme.paddingLarge
-                visible: failed
+                visible: failed && !busy
 
                 Button {
                     text: qsTr("Back")
@@ -109,12 +115,12 @@ Page {
                 text: qsTr("It is possible to quit the setup of filesystems by pressing Quit below. " +
                            "This option is mainly for debug purposes and is expected to be used by device porters " +
                            "at the testing stage.")
-                visible: failed
+                visible: failed && !busy
                 wrapMode: Text.WordWrap
             }
 
             ButtonLayout {
-                visible: failed
+                visible: failed && !busy
                 Button {
                     text: "Quit"
                     onClicked: Qt.quit()
@@ -149,13 +155,41 @@ Page {
         }
     }
 
+    BusyLabel {
+        text: qsTr("Setting password")
+        running: page.busy
+    }
+
+    Timer {
+        id: pauseBeforeAction
+        interval: 250
+        repeat: false
+
+        property string password
+
+        onTriggered: {
+            var p = PasswordMaker.newPassword(type);
+            p.password = password;
+            if (device.addPassword(p) &&
+                    device.setInitialized())
+                pageStack.replace(Qt.resolvedUrl("MainPage.qml"));
+            else
+                failed = true;
+
+            // reset
+            password = "";
+            busy = false;
+        }
+    }
+
+    onStatusChanged: {
+        if (status === PageStatus.Active && busy && pauseBeforeAction.password ) {
+            pauseBeforeAction.start();
+        }
+    }
+
     function set(password) {
-        var p = PasswordMaker.newPassword(type);
-        p.password = password;
-        if (device.addPassword(password) &&
-                device.setInitialized())
-            pageStack.replace(Qt.resolvedUrl("MainPage.qml"));
-        else
-            failed = true;
+        busy = true;
+        pauseBeforeAction.password = password;
     }
 }

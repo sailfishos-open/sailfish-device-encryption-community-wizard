@@ -4,8 +4,10 @@
 
 #include <QGuiApplication>
 #include <QQmlEngine>
+#include <QQmlContext>
 #include <QQuickView>
 #include <QDebug>
+#include <QProcess>
 
 #include <sailfishapp.h>
 
@@ -13,6 +15,8 @@
 
 #include <devenc/devicelist.h>
 #include <devenc/passwordmaker.h>
+
+#include "system.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,7 +28,10 @@ int main(int argc, char *argv[])
 
   QScopedPointer<QQuickView> v;
   v.reset(SailfishApp::createView());
-  //QQmlContext *rootContext = v->rootContext();
+  QQmlContext *rootContext = v->rootContext();
+
+  System system;
+  rootContext->setContextProperty("system", &system);
 
   qmlRegisterType<DevEnc::Device>("org.devenc", 1, 0, "Device");
   qmlRegisterType<DevEnc::Password>("org.devenc", 1, 0, "Password");
