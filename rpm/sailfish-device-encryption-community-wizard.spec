@@ -15,6 +15,7 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  libsfosdevenc-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake
+BuildRequires:  qt5-qttools-linguist
 
 %description
 %summary
