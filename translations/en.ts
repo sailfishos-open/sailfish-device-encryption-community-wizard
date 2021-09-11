@@ -4,49 +4,59 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/MainPage.qml" line="25"/>
+        <location filename="../qml/MainPage.qml" line="28"/>
         <source>Encryption Setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainPage.qml" line="39"/>
+        <location filename="../qml/MainPage.qml" line="42"/>
         <source>Welcome! Your device supports encryption of the filesystem. This wizard will let you select whether to enable it and, if it is enabled, to set it up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainPage.qml" line="43"/>
+        <location filename="../qml/MainPage.qml" line="46"/>
         <source>Continue by setting up the following filesystem.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainPage.qml" line="45"/>
+        <location filename="../qml/MainPage.qml" line="48"/>
         <source>Congratulations! You are all set.
 Continue with the setup of Sailfish OS. For that, you would have to reboot first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainPage.qml" line="62"/>
+        <location filename="../qml/MainPage.qml" line="65"/>
         <source>Encrypt %1?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainPage.qml" line="70"/>
+        <location filename="../qml/MainPage.qml" line="73"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainPage.qml" line="78"/>
+        <location filename="../qml/MainPage.qml" line="81"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainPage.qml" line="90"/>
+        <location filename="../qml/MainPage.qml" line="93"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainPage.qml" line="97"/>
-        <source>Debug exit</source>
+        <location filename="../qml/MainPage.qml" line="107"/>
+        <source>Developer options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainPage.qml" line="117"/>
+        <source>It is possible to proceed with the boot by pressing Quit button below. This will allow you to study logs and find out why the setup wizard did not work.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainPage.qml" line="126"/>
+        <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -131,7 +141,7 @@ Continue with the setup of Sailfish OS. For that, you would have to reboot first
     <message>
         <location filename="../qml/SetEncryptPage.qml" line="47"/>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qml/SetEncryptPage.qml" line="58"/>
@@ -139,17 +149,27 @@ Continue with the setup of Sailfish OS. For that, you would have to reboot first
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SetEncryptPage.qml" line="71"/>
-        <source>It is possible to quit the setup of filesystems by pressing Quit below. This option is mainly for debug purposes and is expected to be used by device porters at the testing stage.</source>
+        <location filename="../qml/SetEncryptPage.qml" line="72"/>
+        <source>Developer options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/SetEncryptPage.qml" line="83"/>
+        <source>It is possible to proceed with the boot by pressing Quit button below. This will allow you to study logs and find out why the setup wizard did not work.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/SetEncryptPage.qml" line="92"/>
+        <source>Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/SetEncryptPage.qml" line="102"/>
         <source>Encrypting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/SetEncryptPage.qml" line="92"/>
+        <location filename="../qml/SetEncryptPage.qml" line="102"/>
         <source>Preparing</source>
         <translation type="unfinished"></translation>
     </message>

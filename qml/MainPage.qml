@@ -16,8 +16,11 @@ Page {
 
     SilicaFlickable {
         anchors.fill: parent
+        contentHeight: column.height + Theme.paddingLarge
 
         Column {
+            id: column
+
             spacing: Theme.paddingLarge
             width: parent.width
 
@@ -92,9 +95,35 @@ Page {
                 }
             }
 
+            Rectangle {
+                color: "transparent"
+                height: Theme.paddingLarge*2
+                width: parent.width
+            }
+
+            TextSwitch {
+                id: devSwitch
+                checked: false
+                text: qsTr("Developer options")
+            }
+
+            Label {
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+
+                color: Theme.highlightColor
+                text: qsTr("It is possible to proceed with the boot by pressing Quit button below. " +
+                           "This will allow you to study logs and find out why the setup wizard did not work.")
+                visible: devSwitch.checked
+                wrapMode: Text.WordWrap
+            }
+
             ButtonLayout {
+                visible: devSwitch.checked
                 Button {
-                    text: qsTr("Debug exit")
+                    text: qsTr("Quit")
                     onClicked: Qt.quit()
                 }
             }

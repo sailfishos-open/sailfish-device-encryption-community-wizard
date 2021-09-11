@@ -60,6 +60,19 @@ Page {
                 }
             }
 
+            Rectangle {
+                color: "transparent"
+                height: Theme.paddingLarge*2
+                width: parent.width
+            }
+
+            TextSwitch {
+                id: devSwitch
+                checked: false
+                text: qsTr("Developer options")
+                visible: done
+            }
+
             Label {
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -67,19 +80,16 @@ Page {
                 anchors.rightMargin: Theme.horizontalPageMargin
 
                 color: Theme.highlightColor
-                //font.pixelSize: Theme.fontSizeLarge
-                text: qsTr("It is possible to quit the setup of filesystems by pressing Quit below. " +
-                           "This option is mainly for debug purposes and is expected to be used by device porters " +
-                           "at the testing stage.")
-                visible: done && !success
+                text: qsTr("It is possible to proceed with the boot by pressing Quit button below. " +
+                           "This will allow you to study logs and find out why the setup wizard did not work.")
+                visible: devSwitch.checked
                 wrapMode: Text.WordWrap
             }
 
             ButtonLayout {
-                visible: done && !success
-
+                visible: devSwitch.checked
                 Button {
-                    text: "Quit"
+                    text: qsTr("Quit")
                     onClicked: Qt.quit()
                 }
             }
