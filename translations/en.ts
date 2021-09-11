@@ -21,6 +21,7 @@
     <message>
         <location filename="../qml/MainPage.qml" line="48"/>
         <source>Congratulations! You are all set.
+
 Continue with the setup of Sailfish OS. For that, you would have to reboot first.</source>
         <translation type="unfinished"></translation>
     </message>
