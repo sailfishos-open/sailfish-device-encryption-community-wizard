@@ -45,7 +45,7 @@ Item {
                     height: keyHeight
                     width: keyWidth
                     text: modelData.text
-                    onClicked: kbd.process(text)
+                    onPressed: kbd.process(text)
                 }
             }
         }
@@ -71,7 +71,7 @@ Item {
                     height: keyHeight
                     width: keyWidth
                     text: _symbols? modelData.symbol: _shift? modelData.text.toUpperCase():  modelData.text
-                    onClicked: kbd.process(text)
+                    onPressed: kbd.process(text)
                 }
             }
         }
@@ -96,7 +96,7 @@ Item {
                     height: keyHeight
                     width: keyWidth
                     text: _symbols? modelData.symbol: _shift? modelData.text.toUpperCase():  modelData.text
-                    onClicked: kbd.process(text)
+                    onPressed: kbd.process(text)
                 }
             }
         }
@@ -122,7 +122,7 @@ Item {
                     height: keyHeight
                     width: keyWidth * modelData.width
                     text: _symbols? modelData.symbol: _shift && modelData.width === 1 ? modelData.text.toUpperCase():  modelData.text
-                    onClicked: kbd.process(text)
+                    onPressed: kbd.process(text)
                 }
             }
         }
@@ -143,7 +143,7 @@ Item {
                     height: keyHeight
                     width: keyWidth * modelData.width
                     text: modelData.text
-                    onClicked: kbd.process(text)
+                    onPressed: kbd.process(text)
                 }
             }
         }
