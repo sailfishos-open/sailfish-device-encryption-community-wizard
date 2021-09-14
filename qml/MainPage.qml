@@ -45,7 +45,7 @@ Page {
                     if (device)
                         return qsTr("Continue by setting up the following filesystem.")
 
-                    return qsTr("Congratulations! You are all set.\n\nContinue with the setup of Sailfish OS. For that, you would have to reboot first.")
+                    return qsTr("Congratulations! You are all set.\n\nContinue with the setup of Sailfish OS by rebooting your device.")
                 }
                 wrapMode: Text.WordWrap
             }

@@ -42,8 +42,8 @@ Page {
 
                 color: Theme.highlightColor
                 height: implicitHeight + Theme.paddingLarge
-                text: qsTr("Set password for encrypted filesystem. Note that only one password is needed at this stage. " +
-                           "Addition, removal, and changes of passwords are supported through Sailfish OS Settings.")
+                text: qsTr("Set password for the encrypted filesystem. Note that only one password is needed at this stage. " +
+                           "Addition, removal, and changes to passwords is performed through Sailfish OS Settings.")
                 visible: !page.busy
                 wrapMode: Text.WordWrap
             }
