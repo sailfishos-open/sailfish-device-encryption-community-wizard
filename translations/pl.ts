@@ -11,7 +11,7 @@
     <message>
         <location filename="../qml/MainPage.qml" line="42"/>
         <source>Welcome! Your device supports encryption of the filesystem. This wizard will let you select whether to enable it and, if it is enabled, to set it up.</source>
-        <translation type="unfinished">Witamy! Twoje urządzenie obsługuje szyfrowanie systemu plików. Ten kreator pozwoli Ci wybrać, czy je włączyć, a jeśli jest włączone, skonfigurować je.</translation>
+        <translation>Witamy! Twoje urządzenie obsługuje szyfrowanie systemu plików. Ten kreator pozwoli Ci wybrać, czy je włączyć, a jeśli jest włączone, skonfigurować je.</translation>
     </message>
     <message>
         <location filename="../qml/MainPage.qml" line="46"/>
@@ -23,7 +23,7 @@
         <source>Congratulations! You are all set.
 
 Continue with the setup of Sailfish OS. For that, you would have to reboot first.</source>
-        <translation type="unfinished">Gratulacje! Wszystko gotowe.
+        <translation>Gratulacje! Wszystko gotowe.
 
 Kontynuuj konfigurację Sailfish OS. W tym celu musisz najpierw zrestartować urządzenie.</translation>
     </message>
