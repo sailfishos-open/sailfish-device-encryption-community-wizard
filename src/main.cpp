@@ -20,11 +20,11 @@
 
 int main(int argc, char *argv[])
 {
-  QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-
   // check if we need to start the wizard
   if (!DevEnc::DeviceList::instance()->initNeeded())
     return 0;
+
+  QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
 
   QScopedPointer<QQuickView> v;
   v.reset(SailfishApp::createView());
