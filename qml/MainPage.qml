@@ -105,6 +105,7 @@ Page {
                 id: devSwitch
                 checked: false
                 text: qsTr("Developer options")
+                visible: device && device.developer
             }
 
             Label {
