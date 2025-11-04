@@ -38,12 +38,22 @@ Page {
                 font.pixelSize: Theme.fontSizeLarge
                 height: implicitHeight + 2*Theme.paddingLarge
                 text: {
-                    if (firstTime)
+                    if (firstTime) {
+                        if (device && device.encryptionRequired) {
+                            return qsTr("Welcome! Your device requires encryption of the filesystem. " +
+                            "This wizard will let you set it up.");
+                        }
                         return qsTr("Welcome! Your device supports encryption of the filesystem. " +
                                     "This wizard will let you select whether to enable it " +
                                     "and, if it is enabled, to set it up.");
-                    if (device)
+                    }
+                    if (device) {
+                        if (device.encryptionRequired) {
+                            return qsTr("This device requires encryption for correct operation. " +
+                                        "Continue by setting up the following filesystem.");
+                        }
                         return qsTr("Continue by setting up the following filesystem.")
+                    }
 
                     return qsTr("Congratulations! You are all set.\n\nContinue with the setup of Sailfish OS by rebooting your device.")
                 }
@@ -79,6 +89,7 @@ Page {
                 }
                 Button {
                     text: qsTr("No")
+                    visible: !main.device.encryptionRequired
                     onClicked: pageStack.replace(Qt.resolvedUrl("SetEncryptPage.qml"),
                                                  {
                                                      "device": main.device,
